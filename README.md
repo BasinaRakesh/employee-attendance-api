@@ -1,26 +1,84 @@
-# Candidate kit
+﻿# Employee Attendance API
 
-Read in this order:
+A FastAPI application for employee attendance management, attendance corrections, and monthly analytics using MongoDB.
 
-1. `PROBLEM_STATEMENT.docx`: what you are asked to do, how it is evaluated.
-2. `openapi.yaml`: the API contract and the business rules (R1 - R10).
-3. `DATA_MODEL.md`: what is stored in MongoDB, with nine sample documents.
-4. `app/main.py`: the starter. Put **all** your code in this one file. It must start with `uvicorn app.main:app --port 8000`.
-5. `REVIEW.md`, `DECISIONS.md`: templates to fill in.
+## Features
 
-`sample_data/` holds the nine sample documents as MongoDB Extended JSON; `sample_seed.py` loads them. The grader's dataset is
-much larger and contains cases they do not show.
+- Employee and attendance record endpoints
+- Punch-in and punch-out handling
+- Attendance regularization with validation and history
+- Department monthly summaries
+- Employee monthly analytics
+- Late-arrival leaderboard
+- Department attendance trends
+- Query execution details through admin explain endpoints
+- MongoDB indexes and duplicate-record protection
 
-## Local setup
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env            # set MONGO_URI / MONGO_DB (local docker: docker run -p 27017:27017 mongo:7)
-python sample_seed.py
-uvicorn app.main:app --port 8000 --reload
+## Project files
+
+- `app/main.py` — API implementation
+- `requirements.txt` — Python dependencies
+- `openapi.yaml` — API specification and business rules
+- `DATA_MODEL.md` — MongoDB data model
+- `sample_data/` — Sample employee and attendance records
+- `sample_seed.py` — Sample data seeding script
+- `REVIEW.md` — Implementation review
+- `DECISIONS.md` — Design decisions
+- `.env.example` — Example environment configuration
+
+## Requirements
+
+- Python 3.10 or newer
+- MongoDB 6.0 or newer
+- MongoDB connection URI
+
+## Setup on Windows (PowerShell)
+
+Create and activate a virtual environment:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
-MongoDB **6.0 or newer** is required (the grader uses 7.0). MongoDB Atlas free tier (M0) works.
 
-## Submit
-A public Git repository with `app/main.py`, `requirements.txt`, `REVIEW.md`, `DECISIONS.md` and a short `README.md`.
-No `.env`, no secrets, no Dockerfile.
+Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+Create your local environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Edit `.env` and set your own MongoDB connection details. Never commit this file or share its secrets.
+
+Seed the sample data:
+
+```powershell
+python sample_seed.py
+```
+
+Start the API:
+
+```powershell
+uvicorn app.main:app --port 8000
+```
+
+## API documentation
+
+Once the server is running:
+
+- Health check: http://127.0.0.1:8000/health
+- Swagger UI: http://127.0.0.1:8000/docs
+- OpenAPI JSON: http://127.0.0.1:8000/openapi.json
+
+## Security
+
+Keep `.env`, database credentials, and other secrets out of version control. Use `.env.example` only as a template with placeholder values.
+
+## Submission
+
+The public repository contains the application code, dependency list, API specification, sample data, and project documentation. The original assignment problem statement is not included in this repository.
